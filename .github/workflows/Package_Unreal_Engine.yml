@@ -3,7 +3,10 @@ name: Package Unreal Engine Project
 on:
   push:
     branches:
-      - master
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
@@ -15,9 +18,9 @@ jobs:
 
       - name: Package Project
         env: 
-          UE_PATH: 'D:\Epic Games\UE_5.3' # Path to your Unreal Engine installation
-          PROJECT_PATH: 'D:\Game Development\Unreal Projects\CICDGO\CICDGO.uproject' # Path to your Unreal project file
-          OUTPUT_PATH: 'D:\Game Development' # Path to where you want to store the packaged game
+          UE_PATH: 'D:\Epic Games\UE_5.4' # Path to your Unreal Engine installation
+          PROJECT_PATH: 'D:\External Project\Building Unreal CICD Engine (2024.11.18)\test\CICDExample\CICDExample.uproject' # Path to your Unreal project file
+          OUTPUT_PATH: 'D:\External Project\Building Unreal CICD Engine (2024.11.18)\test\CICDExample' # Path to where you want to store the packaged game
         run: |
           # Try to run empty UAT to check for correct path
           & $env:UE_PATH\Engine\Build\BatchFiles\RunUAT.bat BuildCookRun -project="$env:PROJECT_PATH" -noP4 -platform=Win64 -clientconfig=Development -serverconfig=Development -cook -allmaps -build -stage -pak -archive -archivedirectory="$env:OUTPUT_PATH"
