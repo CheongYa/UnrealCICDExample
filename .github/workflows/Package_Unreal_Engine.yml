@@ -63,15 +63,15 @@ jobs:
 
       # 5. Upload to OneDrive
       - name: Upload to OneDrive
-        shell: bash
         env:
           ACCESS_TOKEN: ${{ steps.get-token.outputs.token }}
         run: |
-          filePath="/mnt/d/External Project/Building Unreal CICD Engine (2024.11.18)/test/CICDExample/Windows.zip"
-          uri="https://graph.microsoft.com/v1.0/me/drive/root:/Uploads/Windows.zip:/content"
-          curl -X PUT \
-            -H "Authorization: Bearer $ACCESS_TOKEN" \
-            -H "Content-Type: application/octet-stream" \
-            --data-binary @$filePath \
+          $filePath = "D:\\External Project\\Building Unreal CICD Engine (2024.11.18)\\test\\CICDExample\\Windows.zip"
+          $uri = "https://graph.microsoft.com/v1.0/me/drive/root:/Uploads/Windows.zip:/content"
+          curl.exe -X PUT `
+            -H "Authorization: Bearer $env:ACCESS_TOKEN" `
+            -H "Content-Type: application/octet-stream" `
+            --data-binary @"$filePath" `
             $uri
+
 
