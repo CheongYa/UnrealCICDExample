@@ -30,13 +30,20 @@ jobs:
           # Try to run empty UAT to check for correct path
           & $env:UE_PATH\Engine\Build\BatchFiles\RunUAT.bat BuildCookRun -project="$env:PROJECT_PATH" -noP4 -platform=Win64 -clientconfig=Development -serverconfig=Development -cook -allmaps -build -stage -pak -archive -archivedirectory="$env:OUTPUT_PATH"
         
-      # 3. windows 폴더를 GitHub에 커밋 및 푸시
-      - name: Commit and Push Packaged Files to GitHub
+      # 3. Windows 폴더 압축
+      - name: Compress Windows Folder
         run: |
-          # windows 폴더 복사 및 Git 작업
           cd "D:\External Project\Building Unreal CICD Engine (2024.11.18)\test\CICDExample"
-          git config --global user.name "CheongYa"
-          git config --global user.email "chch1234569@naver.com"
-          git add Windows
-          git commit -m "Add packaged Windows folder"
-          git push origin main
+          if (Test-Path "Windows.zip") { Remove-Item "Windows.zip" } # 기존 zip 파일 삭제
+          Compress-Archive -Path Windows -DestinationPath Windows.zip # Windows 폴더 압축
+
+      # 4. windows 폴더를 GitHub에 커밋 및 푸시
+      # - name: Commit and Push Packaged Files to GitHub
+      #   run: |
+      #     # windows 폴더 복사 및 Git 작업
+      #     cd "D:\External Project\Building Unreal CICD Engine (2024.11.18)\test\CICDExample"
+      #     git config --global user.name "CheongYa"
+      #     git config --global user.email "chch1234569@naver.com"
+      #     git add Windows.zip
+      #     git commit -m "Add packaged Windows folder"
+      #     git push origin main
