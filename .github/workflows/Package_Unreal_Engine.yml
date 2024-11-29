@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'windows/**' # windows 폴더 내 모든 파일 제외
+      - 'Windows/**' # windows 폴더 내 모든 파일 제외
       - 'Build/**'
   pull_request:
     branches:
@@ -37,6 +37,6 @@ jobs:
           cd "D:\External Project\Building Unreal CICD Engine (2024.11.18)\test\CICDExample"
           git config --global user.name "CheongYa"
           git config --global user.email "chch1234569@naver.com"
-          git add .
-          git commit -m "Add packaged windows folder"
+          git add Windows
+          git commit -m "Add packaged Windows folder"
           git push origin main
