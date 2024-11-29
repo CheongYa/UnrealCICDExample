@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'windows/**' # windows 폴더 내 모든 파일 제외
   pull_request:
     branches:
       - main
