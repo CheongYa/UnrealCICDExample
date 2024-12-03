@@ -63,14 +63,21 @@ jobs:
               Write-Error "File does not exist at path: $filePath"
               exit 1
           }
-                                          
-          # 3. Upload File to OneDrive
-          $response = Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/me/drive/root:/${env:ONEDRIVE_UPLOAD_PATH}/${fileName}:/content" `
+
+          # 3. Validate OneDrive Path
+          $response = Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/me/drive/root:/Documents:/children" `
+                                        -Headers @{ Authorization = "Bearer $accessToken" }
+          Write-Output "Available Paths:"
+          Write-Output $response
+
+          # 4. Upload File to OneDrive
+          $response = Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/me/drive/root:/Documents/MyUploads/${fileName}:/content" `
                                         -Headers @{ Authorization = "Bearer $accessToken" } `
                                         -Method Put `
                                         -ContentType "application/octet-stream" `
                                         -InFile $filePath
-                                          
+
           Write-Output "File uploaded successfully."
           Write-Output $response
 
+          
