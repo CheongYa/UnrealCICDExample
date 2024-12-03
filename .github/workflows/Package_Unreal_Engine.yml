@@ -68,6 +68,7 @@ jobs:
                               -Method Put `
                               -ContentType "application/octet-stream" `
                               -InFile $filePath
+          }
         
 
 
