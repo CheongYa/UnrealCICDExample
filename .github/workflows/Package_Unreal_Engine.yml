@@ -69,4 +69,3 @@ jobs:
           Write-Output "Access Token: $accessToken"
           Write-Output $response
 
-
