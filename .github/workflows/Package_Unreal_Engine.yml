@@ -55,7 +55,7 @@ jobs:
           $accessToken = $tokenResponse.access_token
         
           # 2. Upload Files to OneDrive
-          $localFolder = "D:/External Project/Building Unreal CICD Engine (2024.11.18)/test/CICDExample"
+          $localFolder = "D:/External Project/Building Unreal CICD Engine (2024.11.18)/test/CICDExample/Windows.zip"
           $files = Get-ChildItem -Path $localFolder
         
           foreach ($file in $files) {
