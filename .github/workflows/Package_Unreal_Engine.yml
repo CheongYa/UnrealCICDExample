@@ -56,20 +56,16 @@ jobs:
         
           # 2. Upload Files to OneDrive
           $localFolder = "D:/External Project/Building Unreal CICD Engine (2024.11.18)/test/CICDExample/Windows.zip"
-          $files = Get-ChildItem -Path $localFolder
+          $fileName = "Windows.zip"
         
-          foreach ($file in $files) {
-            $filePath = $file.FullName
-            $fileName = $file.Name
-        
-            # Upload each file
-            Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/me/drive/root:/${env:ONEDRIVE_UPLOAD_PATH}/${fileName}:/content" `
-                              -Headers @{ Authorization = "Bearer $accessToken" } `
-                              -Method Put `
-                              -ContentType "application/octet-stream" `
-                              -InFile $filePath
+          # Upload each file
+          $response = Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/me/drive/root:/${env:ONEDRIVE_UPLOAD_PATH}/${fileName}:/content" `
+                            -Headers @{ Authorization = "Bearer $accessToken" } `
+                            -Method Put `
+                            -ContentType "application/octet-stream" `
+                            -InFile $filePath
 
-          }
+          Write-Output $response
         
 
 
